@@ -1,0 +1,23 @@
+{
+  "name": "wrap-text",
+  "version": "1.0.0",
+  "description": "Wrap text by JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quyettvq/wrap-text.git"
+  },
+  "keywords": [
+    "wrap text",
+    "line break"
+  ],
+  "author": "Tran Van Quyet <quyettvq@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quyettvq/wrap-text/issues"
+  },
+  "homepage": "https://github.com/quyettvq/wrap-text#readme"
+}

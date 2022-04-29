@@ -1,0 +1,107 @@
+<div id='app'>
+
+</div>
+
+<style>
+    .item {
+        margin-bottom: 20px;
+        font: 13px sans-serif;
+        width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid black;
+        line-height: 20px;
+        word-wrap: break-word;
+    }
+    .pair.normal {
+        display: none;
+    }
+    .cssWrapped {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        position: relative;
+        -webkit-line-clamp: 3;
+    }
+    .pair {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+</style>
+
+<script type="module">
+    import {wrapText, measureText} from './wrapTextImporter.js';
+    import sample_random from './sample_random.js';
+
+    window.wrapText = wrapText;
+    window.measureText = measureText;
+
+    const textSamples = sample_random.replace(/\s+|\n/g, ' ').split(/\s/);
+
+      const samplesLength = textSamples.length;
+      const maxLines = 3;
+      const maxWords = 35;
+      const maxRuns = 10;
+
+      function getTextSample() {
+        const begin = Math.floor(Math.random() * (samplesLength - 100));
+        const end = begin + Math.min(Math.floor(Math.random() * (samplesLength - begin)), maxWords);
+        return textSamples.slice(begin, end).join(' ').trim();
+      }
+      const app = document.querySelector('#app')
+      function drawRow() {
+        const sample = getTextSample();
+        const pair = document.createElement('div');
+        const jsWrapped = document.createElement('div');
+        const cssWrapped = document.createElement('div');
+        jsWrapped.classList.add('item');
+        cssWrapped.classList.add('item', 'cssWrapped');
+        pair.appendChild(jsWrapped);
+        pair.appendChild(cssWrapped);
+        pair.classList.add('pair');
+        app.appendChild(pair);
+        console.log(sample);
+        const wrappedText = wrapText(sample, {
+          maxWidth: 300,
+          maxLines: maxLines,
+          font: '13px sans-serif',
+        }).lines.map(t => t.join('')).join('\n');
+        jsWrapped.innerText = wrappedText;
+        cssWrapped.innerText = sample;
+      }
+      function noopCall(...args) {}
+
+      function drawRowTest() {
+        const sample = getTextSample();
+        return wrapText(sample, {maxWidth: 300, maxLines: maxLines, font: '13px sans-serif'})
+      }
+      function drawRowDumb() {
+        const sample = getTextSample();
+        return noopCall({text: sample, maxWidth: 300, maxLines: maxLines, font: '13px sans-serif'})
+      }
+
+      function testPerformance() {
+        console.time('drawRowTest');
+        for (let i = 0; i < maxRuns; i++) {drawRowTest();}
+        console.timeEnd('drawRowTest');
+
+
+        console.time('drawRowDumb');
+        for (let i = 0; i < maxRuns; i++) {drawRowDumb();}
+        console.timeEnd('drawRowDumb');
+      }
+
+      for (let i = 0; i < maxRuns; i++) {drawRow();}
+
+      //check()
+      function check() {
+        Array.from(document.querySelectorAll('.pair'))
+          .filter(row => row.getBoundingClientRect().height <= 82)
+          .map(row => row.classList.add('normal'));
+      }
+      setTimeout(testPerformance, 1000);
+
+</script>    
+
+

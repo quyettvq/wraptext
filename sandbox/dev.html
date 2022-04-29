@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi-VN">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            table td {
+                vertical-align: top;
+            }
+            .para1, .pre1 {
+                overflow-wrap: anywhere;
+            }
+            .para1 {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <p class="para1"></p>
+                </td>
+                <td>
+                    <pre class="pre1"></pre>
+                </td>
+            </tr>
+        </table>
+        <script type="module">
+            import {wrapText, measureText} from './wrapTextImporter.js';
+
+            window.wrapText = wrapText;
+            window.measureText = measureText;
+
+            import sample_lorem from './sample_lorem.js';
+            import sample_news from './sample_news.js';
+
+            let text;
+            text = new Array(1000).fill((sample_news).replace(/\r\n|\r|\n/g, ' ')).map((text, i) => `===[ ${i + 1} ]=== ${text}`).join('\n\n');
+            // text = new Array(10).fill(`Trắc AV nghiệm tính cách\t    công-việc-giúp-phân-tích đặc điểm tính cách và khả năng của bạn.यह एक लंबा          स्थापित तथ्य है कि जब एक पाठक एक पृष्ठ के खाखे को देखेगा तो पठनीय सामग्री से विचलित हो जाएगा. Lorem Ipsum का उपयोग करने का मुद्दा यह है कि इसमें एक और अधिक या कम अक्षरों का सामान्य वितरण किया गया है, 'Content here, content here' प्रयोग करने की जगह इसे पठनीय English के रूप में प्रयोग किया जाये. अब कई डेस्कटॉप प्रकाशन संकुल और वेब पेज संपादक उनके डिफ़ॉल्ट मॉडल पाठ के रूप में Lorem Ipsum उपयोग करते हैं, और अब "Lorem Ipsum" के लिए खोज अपने शैशव में कई वेब साइटों को उजागर करती है. इसके विभिन्न संस्करणों का वर्षों में विकास हुआ है, कभी दुर्घटना से, तो कभी प्रयोजन पर (हास्य और लगाव डालने के लिए).ცნობილი ფაქტია, რომ გვერდის წაკითხვად შიგთავსს შეუძლია მკითხველის ყურადღება მიიზიდოს და დიზაინის აღქმაში ხელი შეუშალოს. Lorem Ipsum-ის გამოყენებით ვღებულობთ იმაზე მეტ-ნაკლებად სწორი გადანაწილების ტექსტს, ვიდრე ერთიდაიგივე გამეორებადი სიტყვებია ხოლმე. შედეგად, ტექსტი ჩვეულებრივ ინგლისურს გავს, მისი წაითხვა კი შეუძლებელია. დღეს უამრავი პერსონალური საგამომცემლო პროგრამა და ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum，也称乱数假文或者哑元文本， 是印刷及排版领域所常用的虚拟文字。由于曾经一台匿名的打印机刻意打乱了一盒印刷字体从而造出一本字体样品书，Lorem Ipsum从西元15世纪起就被作为此领域的标准文本使用。它不仅延续了五个世纪，还通过了电子排版的挑战，其雏形却依然保存至今。在1960年代，”Leatraset”公司发布了印刷着Lorem Ipsum段落的纸张，从而广泛普及了它的使用。最近，计算机桌面出版软件”Aldus PageMaker”也通过同样的方式使Lorem Ipsum落入大众的视野。Lorem Ipsum הוא פשוט טקסט גולמי של תעשיית ההדפסה וההקלדה. Lorem Ipsum היה טקסט סטנדרטי עוד במאה ה-16, כאשר הדפסה לא ידועה לקחה מגש של דפוס ועירבלה אותו כדי ליצור סוג של ספר דגימה. ספר זה שרד לא רק חמש מאות שנים אלא גם את הקפיצה לתוך ההדפסה האלקטרונית, ונותר כמו שהוא ביסודו. ספר זה הפך פופולרי יותר בשנות ה-60 עם ההוצאה לאור של גליון פונטי המכיל פסקאות של Lorem Ipsum. ועוד יותר לאחרונה עם פרסום תוכנות המחשב האישי כגון Aldus page maker שמכיל גרסאות של Lorem Ipsum.`).join(' ');
+            // text = 'pháp sư Howl có chứa nhiều chủ đề phản-chiến-mạnh-mẽ do ảnh hưởng từ sự phản đối của Miyazaki trước cuộc tấn công Iraq năm 2003))))))).[[[[[[[[5][1234][fffffff]';
+            // text = new Array(100).fill('A\uD835\uDC68B\uD835\uDC69C\uD835\uDC6A_').join('');
+            // text = new Array(100).fill(`Lorem Ipsum का उपयोग करने का मुद्दा यह है कि इसमें एक और अधिक या कम अक्षरों का सामान्य वितरण किया गया है, 'Content here, content here' प्रयोग करने की जगह इसे पठनीय English के रूप में प्रयोग किया जाये. अब कई डेस्कटॉप प्रकाशन संकुल और वेब पेज संपादक उनके डिफ़ॉल्ट मॉडल पाठ के रूप में Lorem Ipsum उपयोग करते हैं, और अब "Lorem Ipsum" के लिए खोज अपने शैशव में कई वेब साइटों को उजागर करती है. इसके विभिन्न संस्करणों का वर्षों में विकास हुआ है, कभी दुर्घटना से, तो कभी प्रयोजन पर (हास्य और लगाव डालने के लिए).`).join(' ')
+            // text = 'của Jones và ông cảm thấy ấn tượng mạnh với hình ảnh một toà lâu đài bay lượn trên đồng quê.[20] Trong khi cuốn tiểu thuyết không giải thích cách toà lâu đài di chuyển';
+            // text = 'những nhân vật phản diện và anh hùng rõ ràng; thay vào đó, các nhân vật có chiều sâu phức tạp, bên cạnh đó ngay cả những nhân vật ban đầu được miêu tả theo';
+            // text = 'tội đế chế cầm quyền là kẻ hủy diệt nền hòa bình."[13] Sự khắc hoạ này trái ngược hẳn với các tác phẩm khác của Miyazaki như Mononoke Hime (1997), vốn thường chỉ trích xung';
+            // text = 'phim Tháng 9 năm 2001, Studio Ghibli đưa ra thông báo tiến hành sản xuất hai bộ phim. Bộ phim thứ nhất mang tên Loài mèo trả ơn và tác phẩm thứ hai là bản';
+            // text = 'sức tưởng tượng.';
+
+            const font = '13px sans-serif';
+            const fontKerning = 'normal';
+            const maxWidth = 300;
+            const maxLines = 20000;
+            const whiteSpace = 'pre-wrap'; // normal | pre-line | pre-wrap
+            const tabSize = 20;
+            const indent = 80;
+
+            const para1 = document.querySelector('.para1');
+            const pre1 = document.querySelector('.pre1');
+
+            para1.style.font = font;
+            para1.style.fontKerning = fontKerning;
+            para1.style.width = maxWidth + 'px';
+            para1.style.textIndent = indent + 'px';
+            para1.style.lineClamp = maxLines;
+            para1.style['-webkit-line-clamp'] = maxLines;
+            para1.style.whiteSpace = whiteSpace;
+            para1.style.tabSize = tabSize;
+            
+            pre1.style.width = maxWidth + 'px';
+            pre1.style.font = font;
+            pre1.style.fontKerning = fontKerning;
+            pre1.style.textIndent = indent + 'px';
+            pre1.style.tabSize = tabSize;
+            
+            console.time('A');
+            const lines = wrapText(text, {
+                font: font,
+                fontKerning: fontKerning,
+                maxWidth: maxWidth,
+                maxLines: maxLines,
+                tabSize: tabSize,
+                indent: indent,
+                // lastIndent: 100,
+                inlineSpaces: whiteSpace === 'normal' || whiteSpace === 'pre-line' ? 'collapse' : 'trim',
+                newlines: whiteSpace === 'normal' ? 'collapse' : 'preserve',
+            }).lines.map(t => t.join(''));
+            console.timeEnd('A');
+            console.log(lines);
+            pre1.textContent = lines.join('\n');
+
+            setTimeout(() => {
+                para1.textContent = text;
+            }, 1000);
+        </script>
+    </body>
+</html>

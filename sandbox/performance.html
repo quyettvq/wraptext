@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi-VN">
+    <head>
+        <meta charset="UTF-8">
+        <script type="module">
+            import {wrapText, measureText} from './wrapTextImporter.js';
+            
+            window.wrapText = wrapText;
+            window.measureText = measureText;
+        </script>
+        <style>
+            table td {
+                vertical-align: top;
+            }
+
+            p, pre {
+                width: 300px;
+                font: 14px Arial;
+                line-height: 20px;
+                overflow-wrap: anywhere;
+            }
+
+            .para1 {
+                
+            }
+
+            .para2 {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                line-clamp: 10;
+                -webkit-line-clamp: 10;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>
+                    <button type="button" onclick="startCssFullText()">Start w/ delay</button>
+                </th>
+                <th>
+                    <button type="button" onclick="startJsFullText()">Start w/ delay</button>
+                </th>
+                <th>
+                    <button type="button" onclick="startCssLimitText()">Start w/ delay</button>
+                </th>
+                <th>
+                    <button type="button" onclick="startJsLimitText()">Start w/ delay</button>
+                </th>
+            </tr>
+            <tr>
+                <th>CSS full text</th>
+                <th>JS full text</th>
+                <th>CSS limit text</th>
+                <th>JS limit text</th>
+            </tr>
+            <tr>
+                <td>
+                    <p class="para1"></p>
+                </td>
+                <td>
+                    <pre class="pre1"></pre>
+                </td>
+                <td>
+                    <p class="para2"></p>
+                </td>
+                <td>
+                    <pre class="pre2"></pre>
+                </td>
+
+            </tr>
+        </table>
+        <script>
+            var text = new Array(1000).fill('Trăm năm trong         cõi người ta,                    (Chữ tài chữ mệnh khéo      là ghét nhau). Trải-qua-một-cuộc-bể-dâu-abc-cde-efg-hjk-lmn, Những điều trông thấy mà đau đớn lòng. Lạ gì bỉ sắc tư phong, Trời xanh quen với má hồng đánh   ghen').join('                                         ');
+            
+            var para1 = document.querySelector('.para1');
+            var pre1 = document.querySelector('.pre1');
+            var pre1Style = window.getComputedStyle(pre1);
+            
+            var para2 = document.querySelector('.para2');
+            var pre2 = document.querySelector('.pre2');
+            var pre2Style = window.getComputedStyle(pre2);
+
+            function startCssFullText() {
+                setTimeout(function () {
+                    para1.innerHTML = text;
+                }, 1000);
+            }
+            
+            function startJsFullText() {
+                setTimeout(function () {
+                    console.time('JS full');
+                    pre1.innerHTML = wrapText(text, {
+                        font: pre1Style.font,
+                        maxWidth: pre1.clientWidth,
+                    }).lines.map(t => t.join('')).join('\n');
+                    console.timeEnd('JS full');
+                }, 1000);
+            }
+            
+            function startCssLimitText() {
+                setTimeout(function () {
+                    para2.innerHTML = text;
+                }, 1000);
+            }
+            
+            function startJsLimitText() {
+                setTimeout(function () {
+                    console.time('JS limit');
+                    pre2.innerHTML = wrapText(text, {
+                        font: pre2Style.font,
+                        maxWidth: pre2.clientWidth,
+                        maxLines: 10,
+                    }).lines.map(t => t.join('')).join('\n');
+                    console.timeEnd('JS limit');
+                }, 1000);
+            }
+        </script>
+    </body>
+</html>
