@@ -1,8 +1,35 @@
 {
-  "name": "wrap-text",
-  "version": "1.0.0",
+  "name": "@quyettvq/wraptext",
+  "version": "1.0.2",
   "description": "Wrap text by JavaScript",
-  "main": "index.js",
+  "main": "./dist/unicode.js",
+  "types": "./dist/unicode.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/unicode.d.ts",
+      "module": "./dist/unicode.js",
+      "import": "./dist/unicode.js",
+      "default": "./dist/unicode.js"
+    },
+    "./unicode": {
+      "types": "./dist/unicode.d.ts",
+      "module": "./dist/unicode.js",
+      "import": "./dist/unicode.js",
+      "default": "./dist/unicode.js"
+    },
+    "./base": {
+      "types": "./dist/base.d.ts",
+      "module": "./dist/base.js",
+      "import": "./dist/base.js",
+      "default": "./dist/base.js"
+    },
+    "./noKern": {
+      "types": "./dist/noKern.d.ts",
+      "module": "./dist/noKern.js",
+      "import": "./dist/noKern.js",
+      "default": "./dist/noKern.js"
+    }
+  },
   "scripts": {
     "test": "jest"
   },

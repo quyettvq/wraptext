@@ -3,13 +3,13 @@
 ## Installation
 
 ```
-npm install wraptext
+npm install @quyettvq/wraptext
 ```
 
 Then, you can import as bellow:
 
 ```js
-import {wrapText, measureText} from 'wraptext/base';
+import {wrapText, measureText} from '@quyettvq/wraptext';
 ```
 
 ## APIs
@@ -87,8 +87,10 @@ export function measureText(text: string, options?: {
 
 ## Usage examples
 
+### Wrap mixed content with max height
+
 ```js
-import {wrapText, measureText} from 'wrap-text/base';
+import {wrapText, measureText} from '@quyettvq/wraptext';
 
 function wrapAdContent({
     titleContent,
@@ -146,7 +148,7 @@ and also some rules are tailorable, so it is ok to not to be exact the same resu
 
 ## Editions
 
-There are three editions: base, unicode, noKern (no font-kerning support).
+There are three editions: base, unicode (default), noKern (no font-kerning support).
 
 **base**:
 
@@ -154,7 +156,7 @@ There are three editions: base, unicode, noKern (no font-kerning support).
 - Line fitting logic is good
 
 ```js
-import {wrapText, measureText} from 'wraptext/base';
+import {wrapText, measureText} from '@quyettvq/wraptext/base';
 ```
 
 **unicode**:
@@ -163,7 +165,7 @@ import {wrapText, measureText} from 'wraptext/base';
 - Line fitting logic is good
 
 ```js
-import {wrapText, measureText} from 'wraptext/unicode';
+import {wrapText, measureText} from '@quyettvq/wraptext/unicode';
 ```
 
 **noKern**:
@@ -172,7 +174,7 @@ import {wrapText, measureText} from 'wraptext/unicode';
 - Line fitting logic does not consider font kerning
 
 ```js
-import {wrapText, measureText} from 'wraptext/noKern';
+import {wrapText, measureText} from '@quyettvq/wraptext/noKern';
 ```
 
 Comparation:
@@ -195,7 +197,7 @@ npm install http-server -g
 Start the server
 
 ```
-cd path-to-utils/text/wrap-text
+cd node_modules/@quyettvq/wraptext
 http-server
 ```
 
