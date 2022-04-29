@@ -1,5 +1,8 @@
 # WrapText
 
+Wrap text to fit a box with limitations of width and height (in pixels).
+Support multiple languages with unicode edition.
+
 ## Installation
 
 ```

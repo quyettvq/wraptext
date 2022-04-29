@@ -39,7 +39,8 @@
   },
   "keywords": [
     "wrap text",
-    "line break"
+    "line break",
+    "canvas wrap text"
   ],
   "author": "Tran Van Quyet <quyettvq@gmail.com>",
   "license": "MIT",
