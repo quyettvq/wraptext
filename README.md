@@ -185,20 +185,3 @@ Comparation:
 If you are dealing with languages that considers space characters make [line break opportunities](http://unicode.org/reports/tr14/#Definitions), you might want to use the **base** edition.
 
 If you don't worry about the file size, it is highly recommended to use the **unicode** version to support all languages.
-
-## Demos
-
-Install http-server for the first time
-
-```
-npm install http-server -g
-```
-
-Start the server
-
-```
-cd node_modules/@quyettvq/wraptext
-http-server
-```
-
-Your demos now available here: http://localhost:8080/sandbox/
