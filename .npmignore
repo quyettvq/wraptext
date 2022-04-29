@@ -2,5 +2,7 @@
 .idea
 .DS_store
 .gitignore
-webpack.config.js
-pack.js
+/webpack.config.js
+/pack.js
+/sandbox
+/src
