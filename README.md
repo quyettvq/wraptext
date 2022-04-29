@@ -201,4 +201,4 @@ cd node_modules/@quyettvq/wraptext
 http-server
 ```
 
-Your demos now available here: http://localhost:8080/sandbox/ (see your console, the port might be different).
+Your demos now available here: http://localhost:8080/sandbox/
