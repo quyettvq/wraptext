@@ -1,6 +1,6 @@
 {
   "name": "@quyettvq/wraptext",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Wrap text by JavaScript",
   "main": "./dist/unicode.js",
   "types": "./dist/unicode.d.ts",
@@ -35,17 +35,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quyettvq/wrap-text.git"
+    "url": "git+https://github.com/quyettvq/wraptext.git"
   },
   "keywords": [
     "wrap text",
     "line break",
+    "word wrap",
     "canvas wrap text"
   ],
   "author": "Tran Van Quyet <quyettvq@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/quyettvq/wrap-text/issues"
+    "url": "https://github.com/quyettvq/wraptext/issues"
   },
-  "homepage": "https://github.com/quyettvq/wrap-text#readme"
+  "homepage": "https://github.com/quyettvq/wraptext#readme"
 }
