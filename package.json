@@ -1,6 +1,6 @@
 {
   "name": "@quyettvq/wraptext",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Wrap text by JavaScript",
   "main": "./dist/unicode.js",
   "types": "./dist/unicode.d.ts",

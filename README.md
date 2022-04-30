@@ -92,7 +92,7 @@ export function measureText(text: string, options?: {
 
 ### Basic usage
 
-```
+```js
 import {wrapText} from '@quyettvq/wraptext';
 
 function testWrapText(text) {
