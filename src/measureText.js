@@ -1,11 +1,9 @@
-import {context2d, DefaultFont, DefaultFontKerning, DefaultTabSize} from './constants.js';
+import {context2d} from './constants.js';
 
 export default function measureText(text, options = {}) {
-    const {
-        font = DefaultFont,
-        fontKerning = DefaultFontKerning,
-        tabSize = DefaultTabSize,
-    } = options;
+    normalizeTypographyOptions(options);
+
+    const {font, fontKerning, tabSize} = options;
     
     context2d.font = font;
     context2d.fontKerning = fontKerning;

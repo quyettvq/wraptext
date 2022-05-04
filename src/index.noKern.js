@@ -1,13 +1,14 @@
 import wrapTextImpl from './wrapTextImpl.js';
 import {charLoaderFn, lineBreakOpportunityTestFn} from './lineBreaking.base.js';
-import {context2d, DefaultFont, DefaultTabSize} from './constants.js';
+import {context2d} from './constants.js';
 import measureText from './measureText.js';
+import {normalizeTypographyOptions, normalizeWrappingOptions} from './options.js';
 
 function wrapText(text, options = {}) {
-    const {
-        font = DefaultFont,
-        tabSize = DefaultTabSize,
-    } = options;
+    normalizeTypographyOptions(options);
+    normalizeWrappingOptions(options);
+
+    const {font, tabSize} = options;
     
     context2d.font = font;
 
@@ -46,9 +47,14 @@ function wrapText(text, options = {}) {
             lineWidth += cw(nextChar);
         }
 
-        while (lineWidth > currentMaxWidth) {
-            const char = lineChars.pop();
-            lineWidth -= cw(char);
+        if (lineChars.length === 0) {
+            // Every line always has at least a character
+            lineChars.push(charProvider.get(offset));
+        } else {
+            while (lineWidth > currentMaxWidth && lineChars.length > 1) {
+                const char = lineChars.pop();
+                lineWidth -= cw(char);
+            }
         }
     };
     

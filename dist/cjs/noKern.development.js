@@ -98,6 +98,10 @@ function CharProvider(sourceText, options = {}) {
      * @returns {boolean}
      */
     this.has = (index) => {
+        if (index < 0) {
+            return false;
+        }
+
         while (true) {
             // The character at this position is completely loaded
             if (index < loadedChars.length - buffer) {
@@ -119,6 +123,10 @@ function CharProvider(sourceText, options = {}) {
      * @returns {string}
      */
     this.get = (index) => {
+        if (index < 0) {
+            return '';
+        }
+
         while (true) {
             // The character at this position is completely loaded
             if (index < loadedChars.length - buffer) {
@@ -145,6 +153,10 @@ function CharProvider(sourceText, options = {}) {
      * @returns {Array<string>}
      */
     this.slice = (start, end) => {
+        if (end <= 0 || end <= start) {
+            return [];
+        }
+        
         while (true) {
             // The characters between these slice positions are completely loaded
             if (end <= loadedChars.length - buffer) {
@@ -158,6 +170,7 @@ function CharProvider(sourceText, options = {}) {
 
             loadNextChunk();
         }
+        console.log(start, end)
     };
 }
 
@@ -184,7 +197,7 @@ const Infinity = Number.POSITIVE_INFINITY;
 
 const DefaultFont = '10px sans-serif';
 
-const DefaultFontKerning = 'normal';
+const DefaultFontKerning = 'auto';
 
 const DefaultTabSize = 8;
 
@@ -246,11 +259,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function measureText(text, options = {}) {
-    const {
-        font = _constants_js__WEBPACK_IMPORTED_MODULE_0__.DefaultFont,
-        fontKerning = _constants_js__WEBPACK_IMPORTED_MODULE_0__.DefaultFontKerning,
-        tabSize = _constants_js__WEBPACK_IMPORTED_MODULE_0__.DefaultTabSize,
-    } = options;
+    normalizeTypographyOptions(options);
+
+    const {font, fontKerning, tabSize} = options;
     
     _constants_js__WEBPACK_IMPORTED_MODULE_0__.context2d.font = font;
     _constants_js__WEBPACK_IMPORTED_MODULE_0__.context2d.fontKerning = fontKerning;
@@ -263,6 +274,66 @@ function measureText(text, options = {}) {
         text.replace(/\t/g, spacesAsTab)
     );
 }
+
+
+/***/ }),
+
+/***/ "./src/options.js":
+/*!************************!*\
+  !*** ./src/options.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "normalizeTypographyOptions": () => (/* binding */ normalizeTypographyOptions),
+/* harmony export */   "normalizeWrappingOptions": () => (/* binding */ normalizeWrappingOptions)
+/* harmony export */ });
+function normalizeTypographyOptions(options = {}) {
+    if (typeof options.font !== 'string') {
+        options.font = '10px sans-serif';
+    }
+
+    if (!['auto', 'normal', 'none'].includes(options.fontKerning)) {
+        options.fontKerning = 'auto';
+    }
+
+    if (typeof options.tabSize !== 'number') {
+        options.tabSize = 8;
+    }
+}
+
+function normalizeWrappingOptions(options = {}) {
+    if (typeof options.maxWidth !== 'number') {
+        options.maxWidth = Infinity;
+    }
+
+    if (typeof options.maxLines !== 'number') {
+        options.maxLines = Infinity;
+    }
+
+    if (typeof options.indent !== 'number') {
+        options.indent = 0;
+    }
+
+    if (typeof options.lastIndent !== 'number') {
+        options.lastIndent = 0;
+    }
+
+    if (typeof options.etc !== 'string') {
+        options.etc = '…';
+    }
+
+    if (!['collapse', 'preserve'].includes(options.newlines)) {
+        options.newlines = 'collapse';
+    }
+
+    if (!['collapse', 'trim', 'preserve'].includes(options.inlineSpaces)) {
+        options.inlineSpaces = 'collapse';
+    }
+}
+
+
 
 
 /***/ }),
@@ -283,24 +354,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function wrapTextImpl(text, options = {}) {
-    const {
+    let {
         charLoaderFn,
         lineBreakOpportunityTestFn,
         lineFittingFn,
         etcLineFittingFn,
         typicalCharWidth,
 
-        maxWidth = _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity],
-        maxLines = _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity],
-        etc = '…',
-        indent = 0,
-        lastIndent = 0,
-        newlines = 'collapse', // collapse | preserve
-        inlineSpaces = 'collapse', // collapse | trim | preserve
+        maxWidth,
+        maxLines,
+        indent,
+        lastIndent,
+        etc,
+        newlines,
+        inlineSpaces,
     } = options;
 
-    // Avoid infinite loops
-    if (isNaN(maxWidth) || maxWidth <= 0 || isNaN(maxLines) || maxLines <= 0) {
+    if (maxLines <= 0) {
         return [];
     }
 
@@ -331,12 +401,12 @@ function wrapTextImpl(text, options = {}) {
         charLoaderFn,
         collapsesSpaces,
         collapsesNewlines,
-        initialChunkSize: maxLines === _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity] ? _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity] : Math.floor(
+        initialChunkSize: maxLines === _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity] ? _constants_js__WEBPACK_IMPORTED_MODULE_1__[Infinity] : Math.max(1, Math.floor(
             1.2 * // empirical number, try to load only one time, but keep the characters need to load not too many
             maxLines * // number of lines should be loaded for the first page
             getEstimatedLineCapacity(maxWidth) // estimated number of chars per line
-        ),
-        supplementalChunkSize: (
+        )),
+        supplementalChunkSize: Math.max(1,
             2 * // number of lines should be loaded if the first page is fully used, this number should be small
             getEstimatedLineCapacity(maxWidth)
         ),
@@ -537,16 +607,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lineBreaking_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lineBreaking.base.js */ "./src/lineBreaking.base.js");
 /* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants.js */ "./src/constants.js");
 /* harmony import */ var _measureText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./measureText.js */ "./src/measureText.js");
+/* harmony import */ var _options_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./options.js */ "./src/options.js");
+
 
 
 
 
 
 function wrapText(text, options = {}) {
-    const {
-        font = _constants_js__WEBPACK_IMPORTED_MODULE_2__.DefaultFont,
-        tabSize = _constants_js__WEBPACK_IMPORTED_MODULE_2__.DefaultTabSize,
-    } = options;
+    (0,_options_js__WEBPACK_IMPORTED_MODULE_4__.normalizeTypographyOptions)(options);
+    (0,_options_js__WEBPACK_IMPORTED_MODULE_4__.normalizeWrappingOptions)(options);
+
+    const {font, tabSize} = options;
     
     _constants_js__WEBPACK_IMPORTED_MODULE_2__.context2d.font = font;
 
@@ -585,9 +657,14 @@ function wrapText(text, options = {}) {
             lineWidth += cw(nextChar);
         }
 
-        while (lineWidth > currentMaxWidth) {
-            const char = lineChars.pop();
-            lineWidth -= cw(char);
+        if (lineChars.length === 0) {
+            // Every line always has at least a character
+            lineChars.push(charProvider.get(offset));
+        } else {
+            while (lineWidth > currentMaxWidth && lineChars.length > 1) {
+                const char = lineChars.pop();
+                lineWidth -= cw(char);
+            }
         }
     };
     

@@ -1,25 +1,24 @@
 import CharProvider from './CharProvider.js';
-import {DefaultTabSize, Infinity} from './constants.js';
+import {Infinity} from './constants.js';
 
 export default function wrapTextImpl(text, options = {}) {
-    const {
+    let {
         charLoaderFn,
         lineBreakOpportunityTestFn,
         lineFittingFn,
         etcLineFittingFn,
         typicalCharWidth,
 
-        maxWidth = Infinity,
-        maxLines = Infinity,
-        etc = '…',
-        indent = 0,
-        lastIndent = 0,
-        newlines = 'collapse', // collapse | preserve
-        inlineSpaces = 'collapse', // collapse | trim | preserve
+        maxWidth,
+        maxLines,
+        indent,
+        lastIndent,
+        etc,
+        newlines,
+        inlineSpaces,
     } = options;
 
-    // Avoid infinite loops
-    if (isNaN(maxWidth) || maxWidth <= 0 || isNaN(maxLines) || maxLines <= 0) {
+    if (maxLines <= 0) {
         return [];
     }
 
@@ -50,12 +49,12 @@ export default function wrapTextImpl(text, options = {}) {
         charLoaderFn,
         collapsesSpaces,
         collapsesNewlines,
-        initialChunkSize: maxLines === Infinity ? Infinity : Math.floor(
+        initialChunkSize: maxLines === Infinity ? Infinity : Math.max(1, Math.floor(
             1.2 * // empirical number, try to load only one time, but keep the characters need to load not too many
             maxLines * // number of lines should be loaded for the first page
             getEstimatedLineCapacity(maxWidth) // estimated number of chars per line
-        ),
-        supplementalChunkSize: (
+        )),
+        supplementalChunkSize: Math.max(1,
             2 * // number of lines should be loaded if the first page is fully used, this number should be small
             getEstimatedLineCapacity(maxWidth)
         ),

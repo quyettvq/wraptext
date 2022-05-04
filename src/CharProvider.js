@@ -84,6 +84,10 @@ export default function CharProvider(sourceText, options = {}) {
      * @returns {boolean}
      */
     this.has = (index) => {
+        if (index < 0) {
+            return false;
+        }
+
         while (true) {
             // The character at this position is completely loaded
             if (index < loadedChars.length - buffer) {
@@ -105,6 +109,10 @@ export default function CharProvider(sourceText, options = {}) {
      * @returns {string}
      */
     this.get = (index) => {
+        if (index < 0) {
+            return '';
+        }
+
         while (true) {
             // The character at this position is completely loaded
             if (index < loadedChars.length - buffer) {
@@ -131,6 +139,10 @@ export default function CharProvider(sourceText, options = {}) {
      * @returns {Array<string>}
      */
     this.slice = (start, end) => {
+        if (end <= 0 || end <= start) {
+            return [];
+        }
+        
         while (true) {
             // The characters between these slice positions are completely loaded
             if (end <= loadedChars.length - buffer) {
@@ -144,5 +156,6 @@ export default function CharProvider(sourceText, options = {}) {
 
             loadNextChunk();
         }
+        console.log(start, end)
     };
 }

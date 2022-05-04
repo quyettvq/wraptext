@@ -26,10 +26,15 @@ function lineFittingFn(lineChars, charProvider, offset, currentMaxWidth) {
         lineChars.push(charProvider.get(offset + lineChars.length));
     }
     
-    while (lineChars.length > 0 &&
-        tw(lineChars) > currentMaxWidth
-    ) {
-        lineChars.length -= 1;
+    if (lineChars.length === 0) {
+        // Every line always has at least a character
+        lineChars.push(charProvider.get(offset));
+    } else {
+        while (lineChars.length > 1 &&
+            tw(lineChars) > currentMaxWidth
+        ) {
+            lineChars.length -= 1;
+        }
     }
 }
 
