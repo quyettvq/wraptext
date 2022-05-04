@@ -1,3 +1,5 @@
+import {Infinity} from './constants.js';
+
 function normalizeTypographyOptions(options = {}) {
     if (typeof options.font !== 'string') {
         options.font = '10px sans-serif';
