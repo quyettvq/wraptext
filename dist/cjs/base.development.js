@@ -185,21 +185,12 @@ function CharProvider(sourceText, options = {}) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DefaultFont": () => (/* binding */ DefaultFont),
-/* harmony export */   "DefaultFontKerning": () => (/* binding */ DefaultFontKerning),
-/* harmony export */   "DefaultTabSize": () => (/* binding */ DefaultTabSize),
 /* harmony export */   "Infinity": () => (/* binding */ Infinity),
 /* harmony export */   "context2d": () => (/* binding */ context2d)
 /* harmony export */ });
 const context2d = document.createElement('canvas').getContext('2d');
 
 const Infinity = Number.POSITIVE_INFINITY;
-
-const DefaultFont = '10px sans-serif';
-
-const DefaultFontKerning = 'auto';
-
-const DefaultTabSize = 8;
 
 
 /***/ }),
@@ -359,6 +350,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "normalizeTypographyOptions": () => (/* binding */ normalizeTypographyOptions),
 /* harmony export */   "normalizeWrappingOptions": () => (/* binding */ normalizeWrappingOptions)
 /* harmony export */ });
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./src/constants.js");
+
+
 function normalizeTypographyOptions(options = {}) {
     if (typeof options.font !== 'string') {
         options.font = '10px sans-serif';
@@ -375,11 +369,11 @@ function normalizeTypographyOptions(options = {}) {
 
 function normalizeWrappingOptions(options = {}) {
     if (typeof options.maxWidth !== 'number') {
-        options.maxWidth = Infinity;
+        options.maxWidth = _constants_js__WEBPACK_IMPORTED_MODULE_0__[Infinity];
     }
 
     if (typeof options.maxLines !== 'number') {
-        options.maxLines = Infinity;
+        options.maxLines = _constants_js__WEBPACK_IMPORTED_MODULE_0__[Infinity];
     }
 
     if (typeof options.indent !== 'number') {
