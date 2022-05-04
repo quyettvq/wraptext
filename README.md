@@ -304,7 +304,7 @@ import {wrapText, measureText} from '@quyettvq/wraptext/noKern';
 
 Comparation:
 - Quality: unicode > base > noKern
-- File size: unicode (20kb) >>>> noKern ~ base (3.2kb)
+- File size: unicode (20kb) >>>> noKern ~ base (3.9kb)
 - Performance: noKern >> base > unicode
 
 If you are dealing with languages that considers space characters make [line break opportunities](http://unicode.org/reports/tr14/#Definitions), you might want to use the **base** edition.
