@@ -1,6 +1,6 @@
 import {Infinity} from './constants.js';
 
-function normalizeTypographyOptions(options = {}) {
+function normalizeTypographyOptions(options) {
     if (typeof options.font !== 'string') {
         options.font = '10px sans-serif';
     }
@@ -14,7 +14,7 @@ function normalizeTypographyOptions(options = {}) {
     }
 }
 
-function normalizeWrappingOptions(options = {}) {
+function normalizeWrappingOptions(options) {
     if (typeof options.maxWidth !== 'number') {
         options.maxWidth = Infinity;
     }
