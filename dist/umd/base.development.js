@@ -180,7 +180,6 @@ function CharProvider(sourceText, options = {}) {
 
             loadNextChunk();
         }
-        console.log(start, end)
     };
 }
 
