@@ -363,7 +363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./src/constants.js");
 
 
-function normalizeTypographyOptions(options = {}) {
+function normalizeTypographyOptions(options) {
     if (typeof options.font !== 'string') {
         options.font = '10px sans-serif';
     }
@@ -377,7 +377,7 @@ function normalizeTypographyOptions(options = {}) {
     }
 }
 
-function normalizeWrappingOptions(options = {}) {
+function normalizeWrappingOptions(options) {
     if (typeof options.maxWidth !== 'number') {
         options.maxWidth = _constants_js__WEBPACK_IMPORTED_MODULE_0__[Infinity];
     }
