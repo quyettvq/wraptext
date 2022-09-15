@@ -2,7 +2,8 @@
 .idea
 .DS_store
 .gitignore
-/webpack.config.js
-/pack.js
+node_modules
+/rollup.config.js
+/gen_exports.js
 /sandbox
 /src
