@@ -1,18 +1,18 @@
-const fs = require('fs');
+let fs = require('fs');
 
-const data = fs.readFileSync('./LineBreak.txt', 'utf-8');
+let data = fs.readFileSync('./LineBreak.txt', 'utf-8');
 
-const lines = data
+let lines = data
     .split(/\r\n|\n|\r/)
     .map(line => line.trim())
     .filter(line => line !== '' && !line.startsWith('#'))
     .map(line => line.split('#', 1)[0].trim());
 
-const json = Object.create(null);
+let json = Object.create(null);
 
 lines.forEach(line => {
-    const [code, lbc] = line.split(';');
-    const codes = json[lbc];
+    let [code, lbc] = line.split(';');
+    let codes = json[lbc];
     if (codes === undefined) {
         json[lbc] = [code];
     } else {
@@ -20,18 +20,18 @@ lines.forEach(line => {
     }
 });
 
-const keys = Object.keys(json);
+let keys = Object.keys(json);
 keys.sort();
 
-const numCode = {};
+let numCode = {};
 for (let lbc of keys) {
-    const src = json[lbc];
+    let src = json[lbc];
     
-    const points = [];
-    const ranges = [];
+    let points = [];
+    let ranges = [];
 
     for (let i = 0; i < src.length; i++) {
-        const item = src[i];
+        let item = src[i];
         if (item.includes('..')) {
             ranges.push(item.split('..').map(t => parseInt(`0x${t}`)));
         } else {
@@ -44,19 +44,19 @@ for (let lbc of keys) {
     points.sort((a, b) => b - a);
     ranges.sort((a, b) => b[0] - a[0]);
 
-    const pointCompacts = [];
-    const rangeCompacts = [];
+    let pointCompacts = [];
+    let rangeCompacts = [];
 
     let nextPoint = 0;
     for (let i = points.length - 1; i >= 0; i--) {
-        const point = points[i];
+        let point = points[i];
         pointCompacts.unshift(point - nextPoint);
         nextPoint = point;
     }
 
     let nextEnd = 0;
     for (let i = ranges.length - 1; i >= 0; i--) {
-        const [start, end] = ranges[i];
+        let [start, end] = ranges[i];
         rangeCompacts.unshift(start - nextEnd);
         rangeCompacts.unshift(end - start);
         nextEnd = end;
@@ -65,7 +65,7 @@ for (let lbc of keys) {
     numCode[lbc] = [pointCompacts, rangeCompacts];
 }
 
-const jsCode = `/**
+let jsCode = `/**
  *
  * LineBreak
  * @source: https://www.unicode.org/Public/UCD/latest/ucd/LineBreak.txt

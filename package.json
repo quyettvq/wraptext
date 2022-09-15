@@ -1,37 +1,43 @@
 {
   "name": "@quyettvq/wraptext",
-  "version": "1.0.12",
+  "version": "1.1.0",
   "description": "Wrap text by JavaScript",
   "main": "./dist/unicode.js",
   "types": "./dist/unicode.d.ts",
   "exports": {
     ".": {
       "types": "./dist/unicode.d.ts",
-      "module": "./dist/unicode.js",
-      "import": "./dist/unicode.js",
+      "module": "./dist/unicode.mjs",
+      "import": "./dist/unicode.mjs",
       "default": "./dist/unicode.js"
     },
     "./unicode": {
       "types": "./dist/unicode.d.ts",
-      "module": "./dist/unicode.js",
-      "import": "./dist/unicode.js",
+      "module": "./dist/unicode.mjs",
+      "import": "./dist/unicode.mjs",
       "default": "./dist/unicode.js"
     },
     "./base": {
       "types": "./dist/base.d.ts",
-      "module": "./dist/base.js",
-      "import": "./dist/base.js",
+      "module": "./dist/base.mjs",
+      "import": "./dist/base.mjs",
       "default": "./dist/base.js"
     },
     "./noKern": {
       "types": "./dist/noKern.d.ts",
-      "module": "./dist/noKern.js",
-      "import": "./dist/noKern.js",
+      "module": "./dist/noKern.mjs",
+      "import": "./dist/noKern.mjs",
       "default": "./dist/noKern.js"
     }
   },
   "scripts": {
     "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "rollup": "^2.74.1",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "repository": {
     "type": "git",

@@ -1,32 +1,32 @@
-export default function CharProvider(sourceText, options = {}) {
-    const {
-        charLoaderFn,
-        collapsesSpaces,
-        collapsesNewlines,
-        initialChunkSize,
-        supplementalChunkSize,
+function CharProvider(sourceText, options) {
+    let {
+        charLoaderFn_,
+        collapsesSpaces_,
+        collapsesNewlines_,
+        initialChunkSize_,
+        supplementalChunkSize_,
         // First time, we should load the number of chars slightly more than estimated total chars we need
         // If that number of chars is not enough, then we need to load more
         // but we should load a small amount as a supplement
     } = options;
 
-    const loadedChars = [];
-    const iterator = sourceText[Symbol.iterator]();
+    let loadedChars = [];
+    let iterator = sourceText[Symbol.iterator]();
     let next = iterator.next();
-    let currentChunkSize = initialChunkSize;
+    let currentChunkSize = initialChunkSize_;
     let totalReleasedChars = 0;
     let isNextSectionReady = false;
     
-    const loadNextChunk = () => {
+    let loadNextChunk = () => {
         if (isNextSectionReady) {
             return;
         }
 
-        const limit = loadedChars.length + currentChunkSize;
+        let limit = loadedChars.length + currentChunkSize;
         
-        if (collapsesNewlines) {
+        if (collapsesNewlines_) {
             while (!next.done && loadedChars.length < limit) {
-                charLoaderFn(loadedChars, next.value, collapsesSpaces);
+                charLoaderFn_(loadedChars, next.value, collapsesSpaces_);
                 next = iterator.next();
             }
         } else {
@@ -36,19 +36,19 @@ export default function CharProvider(sourceText, options = {}) {
                     break;
                 }
 
-                charLoaderFn(loadedChars, next.value, collapsesSpaces);
+                charLoaderFn_(loadedChars, next.value, collapsesSpaces_);
                 next = iterator.next();
             }
         }
 
-        currentChunkSize = Math.max(initialChunkSize - totalReleasedChars, supplementalChunkSize);
+        currentChunkSize = Math.max(initialChunkSize_ - totalReleasedChars, supplementalChunkSize_);
     };
 
     /**
      * 
      * @returns {boolean}
      */
-    this.enterNextSection = () => {
+    this.enterNextSection_ = () => {
         if (!isNextSectionReady) {
             return false;
         }
@@ -83,7 +83,7 @@ export default function CharProvider(sourceText, options = {}) {
      * @param {number} index
      * @returns {boolean}
      */
-    this.has = (index) => {
+    this.has_ = (index) => {
         if (index < 0) {
             return false;
         }
@@ -108,7 +108,7 @@ export default function CharProvider(sourceText, options = {}) {
      * @param {number} index
      * @returns {string}
      */
-    this.get = (index) => {
+    this.get_ = (index) => {
         if (index < 0) {
             return '';
         }
@@ -138,7 +138,7 @@ export default function CharProvider(sourceText, options = {}) {
      * @param {number} end
      * @returns {Array<string>}
      */
-    this.slice = (start, end) => {
+    this.slice_ = (start, end) => {
         if (end <= 0 || end <= start) {
             return [];
         }
@@ -157,4 +157,8 @@ export default function CharProvider(sourceText, options = {}) {
             loadNextChunk();
         }
     };
-}
+};
+
+export {
+    CharProvider,
+};

@@ -3,7 +3,7 @@ import {cc, mc} from './line-break/index.js';
 // Reference document
 // https://www.unicode.org/reports/tr14/tr14-45.html#Algorithm
 
-function charLoaderFn(loadedChars, char, collapsesSpaces) {
+let charLoaderFn = (loadedChars, char, collapsesSpaces) => {
     if (collapsesSpaces && /\s/.test(char)) {
         if (loadedChars[loadedChars.length - 1] !== ' ') {
             loadedChars.push(' ');
@@ -21,15 +21,15 @@ function charLoaderFn(loadedChars, char, collapsesSpaces) {
     }
 
     loadedChars.push(char);
-}
+};
 
-function lineBreakOpportunityTestFn(charProvider, indexBefore, trimsLines) {
+let lineBreakOpportunityTestFn = (charProvider, indexBefore, trimsLines) => {
     // We always have characters before and after the line break opportunity
     // But the character before of before may not exist
     // In case the character is not exist, the code will be NaN
-    let beforeBefore = charProvider.get(indexBefore - 1).charCodeAt(0);
-    let before = charProvider.get(indexBefore).charCodeAt(0);
-    let after = charProvider.get(indexBefore + 1).charCodeAt(0);
+    let beforeBefore = charProvider.get_(indexBefore - 1).charCodeAt(0);
+    let before = charProvider.get_(indexBefore).charCodeAt(0);
+    let after = charProvider.get_(indexBefore + 1).charCodeAt(0);
 
     // If we have a character and zero, one or many following spaces
     // Then we call that character beforeSP
@@ -38,7 +38,7 @@ function lineBreakOpportunityTestFn(charProvider, indexBefore, trimsLines) {
         beforeSP = beforeBefore; // indexBefore - 1
         if (cc(beforeSP, 'SP')) {
             for (let i = indexBefore - 2; cc(beforeSP, 'SP'); i--) {
-                beforeSP = charProvider.get(i).charCodeAt(0);
+                beforeSP = charProvider.get_(i).charCodeAt(0);
                 // beforeSP will be NaN if there is no character left
                 // then the loop will be finished after checking the condition
                 // DON'T check for i >= 0,
@@ -217,9 +217,9 @@ function lineBreakOpportunityTestFn(charProvider, indexBefore, trimsLines) {
 
     // LB31
     return true;
-}
+};
 
 export {
     charLoaderFn,
     lineBreakOpportunityTestFn,
-}
+};

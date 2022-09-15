@@ -6,29 +6,29 @@ let spacesAsTab;
 
 // IMPORTANT!!!
 // Always set the tab size before using other functions
-function setTabSize(value) {
+let setTabSize = (value) => {
     spacesAsTab = new Array(value).fill(' ').join('');
-}
+};
 
-function tw(chars) {
+let tw = (chars) => {
     let textToMeasure = '';
     for (let i = 0; i < chars.length; i++) {
-        const char = chars[i];
+        let char = chars[i];
         textToMeasure += char === '\t' ? spacesAsTab : char;
     }
     return context2d.measureText(textToMeasure).width;
-}
+};
 
-function lineFittingFn(lineChars, charProvider, offset, currentMaxWidth) {
-    while (charProvider.has(offset + lineChars.length) &&
+let lineFittingFn = (lineChars, charProvider, offset, currentMaxWidth) => {
+    while (charProvider.has_(offset + lineChars.length) &&
         tw(lineChars) < currentMaxWidth
     ) {
-        lineChars.push(charProvider.get(offset + lineChars.length));
+        lineChars.push(charProvider.get_(offset + lineChars.length));
     }
     
     if (lineChars.length === 0) {
         // Every line always has at least a character
-        lineChars.push(charProvider.get(offset));
+        lineChars.push(charProvider.get_(offset));
     } else {
         while (lineChars.length > 1 &&
             tw(lineChars) > currentMaxWidth
@@ -36,9 +36,9 @@ function lineFittingFn(lineChars, charProvider, offset, currentMaxWidth) {
             lineChars.length -= 1;
         }
     }
-}
+};
 
-function etcLineFittingFn(lastLineChars, etc, currentMaxWidth) {
+let etcLineFittingFn = (lastLineChars, etc, currentMaxWidth) => {
     while (lastLineChars.length > 0 &&
         tw(lastLineChars.concat(etc)) > currentMaxWidth
     ) {
@@ -47,11 +47,11 @@ function etcLineFittingFn(lastLineChars, etc, currentMaxWidth) {
 
     // If etc contains some chars, we can consider it as a combinated-char
     lastLineChars.push(etc);
-}
+};
 
 export {
     setTabSize,
     tw,
     lineFittingFn,
     etcLineFittingFn,
-}
+};

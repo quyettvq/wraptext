@@ -1,50 +1,78 @@
 import {Infinity} from './constants.js';
 
-function normalizeTypographyOptions(options) {
-    if (typeof options.font !== 'string') {
-        options.font = '10px sans-serif';
+let normalizeTypographyOptions = (options, userOptions) => {
+    if (userOptions === undefined) {
+        userOptions = {};
     }
 
-    if (!['auto', 'normal', 'none'].includes(options.fontKerning)) {
-        options.fontKerning = 'auto';
+    if (typeof userOptions.font === 'string') {
+        options.font_ = userOptions.font;
+    } else {
+        options.font_ = '10px sans-serif';
     }
 
-    if (typeof options.tabSize !== 'number') {
-        options.tabSize = 8;
-    }
-}
-
-function normalizeWrappingOptions(options) {
-    if (typeof options.maxWidth !== 'number') {
-        options.maxWidth = Infinity;
+    if (['auto', 'normal', 'none'].includes(userOptions.fontKerning)) {
+        options.fontKerning_ = userOptions.fontKerning;
+    } else {
+        options.fontKerning_ = 'auto';
     }
 
-    if (typeof options.maxLines !== 'number') {
-        options.maxLines = Infinity;
+    if (typeof userOptions.tabSize === 'number') {
+        options.tabSize_ = userOptions.tabSize;
+    } else {
+        options.tabSize_ = 8;
+    }
+};
+
+let normalizeWrappingOptions = (options, userOptions) => {
+    if (userOptions === undefined) {
+        userOptions = {};
+    }
+    
+    if (typeof userOptions.maxWidth === 'number') {
+        options.maxWidth_ = userOptions.maxWidth;
+    } else {
+        options.maxWidth_ = Infinity;
     }
 
-    if (typeof options.indent !== 'number') {
-        options.indent = 0;
+    if (typeof userOptions.maxLines === 'number') {
+        options.maxLines_ = userOptions.maxLines;
+    } else {
+        options.maxLines_ = Infinity;
     }
 
-    if (typeof options.lastIndent !== 'number') {
-        options.lastIndent = 0;
+    if (typeof userOptions.indent === 'number') {
+        options.indent_ = userOptions.indent;
+    } else {
+        options.indent_ = 0;
     }
 
-    if (typeof options.etc !== 'string') {
-        options.etc = '…';
+    if (typeof userOptions.lastIndent === 'number') {
+        options.lastIndent_ = userOptions.lastIndent;
+    } else {
+        options.lastIndent_ = 0;
     }
 
-    if (!['collapse', 'preserve'].includes(options.newlines)) {
-        options.newlines = 'collapse';
+    if (typeof userOptions.etc === 'string') {
+        options.etc_ = userOptions.etc;
+    } else {
+        options.etc_ = '…';
     }
 
-    if (!['collapse', 'trim', 'preserve'].includes(options.inlineSpaces)) {
-        options.inlineSpaces = 'collapse';
+    if (['collapse', 'preserve'].includes(userOptions.newlines)) {
+        options.newlines_ = userOptions.newlines;
+    } else {
+        options.newlines_ = 'collapse';
     }
-}
+
+    if (['collapse', 'trim', 'preserve'].includes(userOptions.inlineSpaces)) {
+        options.inlineSpaces_ = userOptions.inlineSpaces;
+    } else {
+        options.inlineSpaces_ = 'collapse';
+    }
+};
 
 export {
     normalizeTypographyOptions,
     normalizeWrappingOptions,
-}
+};

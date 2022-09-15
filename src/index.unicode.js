@@ -1,39 +1,37 @@
-import wrapTextImpl from './wrapTextImpl.js';
+import {wrapTextImpl} from './wrapTextImpl.js';
 import {charLoaderFn, lineBreakOpportunityTestFn} from './lineBreaking.unicode.js';
 import {tw, lineFittingFn, etcLineFittingFn, setTabSize} from './lineFitting.base.js';
 import {context2d} from './constants.js';
-import measureText from './measureText.js';
+import {measureText} from './measureText.js';
 import {normalizeTypographyOptions, normalizeWrappingOptions} from './options.js';
 import {ensureDataReady} from './line-break/index.js';
 
-function wrapText(text, options = {}) {
+let wrapText = (text, userOptions) => {
     ensureDataReady();
 
-    normalizeTypographyOptions(options);
-    normalizeWrappingOptions(options);
+    let options = {};
+    normalizeTypographyOptions(options, userOptions);
+    normalizeWrappingOptions(options, userOptions);
 
-    const {font, fontKerning, tabSize} = options;
+    context2d.font = options.font_;
+    context2d.fontKerning = options.fontKerning_;
+    setTabSize(options.tabSize_);
     
-    context2d.font = font;
-    context2d.fontKerning = fontKerning;
-    setTabSize(tabSize);
-    
-    const lines = wrapTextImpl(text, {
-        charLoaderFn,
-        lineBreakOpportunityTestFn,
-        lineFittingFn,
-        etcLineFittingFn,
-        typicalCharWidth: tw(['a']),
-        ...options
-    });
+    let lines = wrapTextImpl(text, Object.assign(options, {
+        charLoaderFn_: charLoaderFn,
+        lineBreakOpportunityTestFn_: lineBreakOpportunityTestFn,
+        lineFittingFn_: lineFittingFn,
+        etcLineFittingFn_: etcLineFittingFn,
+        typicalCharWidth_: tw(['a'])
+    }));
 
     return {
         lines,
         font: context2d.font,
     };
-}
+};
 
 export {
     wrapText,
     measureText,
-}
+};
