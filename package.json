@@ -1,7 +1,7 @@
 {
   "name": "@quyettvq/wraptext",
-  "version": "1.1.0",
-  "description": "Wrap text by JavaScript",
+  "version": "1.1.1",
+  "description": "Wrap text, supports Unicode and non-monospace fonts",
   "main": "./dist/unicode.js",
   "types": "./dist/unicode.d.ts",
   "exports": {

@@ -1,7 +1,7 @@
 # WrapText
 
 Wrap text to fit a box with limitations of width and height (in pixels).
-Support multiple languages.
+Supports Unicode and non-monospace fonts.
 
 ## Installation
 
@@ -304,7 +304,7 @@ import {wrapText, measureText} from '@quyettvq/wraptext/noKern';
 
 Comparation:
 - Quality: unicode > base > noKern
-- File size: unicode (20kb) >>>> noKern ~ base (3.9kb)
+- File size: unicode (20kb) >>>> noKern ~ base (3.2kb)
 - Performance: noKern >> base > unicode
 
 If you are dealing with languages that considers space characters make [line break opportunities](http://unicode.org/reports/tr14/#Definitions), you might want to use the **base** edition.
