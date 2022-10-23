@@ -6,13 +6,13 @@ Supports Unicode and non-monospace fonts.
 ## Installation
 
 ```
-npm install @quyettvq/wraptext
+npm install wraptext.js
 ```
 
 Then, you can import as bellow:
 
 ```js
-import {wrapText, measureText} from '@quyettvq/wraptext';
+import {wrapText, measureText} from 'wraptext.js';
 ```
 
 ## APIs
@@ -93,7 +93,7 @@ export function measureText(text: string, options?: {
 ### Basic usage
 
 ```js
-import {wrapText} from '@quyettvq/wraptext';
+import {wrapText} from 'wraptext.js';
 
 function testWrapText(text) {
     const lines = wrapText(text, {
@@ -215,7 +215,7 @@ Ipsum-ის სხვადასხვა ვერსიები იყო �
 ### Wrap mixed content with max height
 
 ```js
-import {wrapText, measureText} from '@quyettvq/wraptext';
+import {wrapText, measureText} from 'wraptext.js';
 
 function wrapPostContent({
     titleContent,
@@ -281,7 +281,7 @@ There are three editions: base, unicode (default), noKern (no font-kerning suppo
 - Line fitting logic is good
 
 ```js
-import {wrapText, measureText} from '@quyettvq/wraptext/base';
+import {wrapText, measureText} from 'wraptext.js/base';
 ```
 
 **unicode**:
@@ -290,7 +290,7 @@ import {wrapText, measureText} from '@quyettvq/wraptext/base';
 - Line fitting logic is good
 
 ```js
-import {wrapText, measureText} from '@quyettvq/wraptext/unicode';
+import {wrapText, measureText} from 'wraptext.js/unicode';
 ```
 
 **noKern**:
@@ -299,7 +299,7 @@ import {wrapText, measureText} from '@quyettvq/wraptext/unicode';
 - Line fitting logic does not consider font kerning
 
 ```js
-import {wrapText, measureText} from '@quyettvq/wraptext/noKern';
+import {wrapText, measureText} from 'wraptext.js/noKern';
 ```
 
 Comparation:
